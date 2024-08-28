@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   miner:
-    build: .
+    image: graphite:latest
     volumes:
       - ~/./bittensor:/bittensor
     command: >
