@@ -1,0 +1,22 @@
+version: "3.3"
+
+services:
+  miner:
+    build: .
+    volumes:
+      - ~/./bittensor:/bittensor
+    command: >
+      bash -c "./scripts/keys_gen.sh
+      && python3 -m neurons.miner --netuid $NETUID --subtensor.network $NETWORK --wallet.name $WALLET_NAME --wallet.hotkey $HOTKEY_NAME --logging.debug info --axon.port $PORT"
+      # && pm2 start neurons/miner.py --name graphite_miner --interpreter python3 -- --netuid ${NETUID} --subtensor.network ${NETWORK} --wallet.name ${WALLET_NAME} --wallet.hotkey ${HOTKEY_NAME} --logging.debug info --axon.port ${PORT}"
+    environment:
+      - WALLET_NAME=$WALLET_NAME
+      - HOTKEY_MNEMONIC=$HOTKEY_MNEMONIC
+      - HOTKEY_NAME=$HOTKEY_NAME
+      - NETUID=$NETUID
+      - NETWORK=$NETWORK
+      - PORT=$PORT
+    restart: always
+
+volumes:
+  bittensor:
